@@ -25,6 +25,7 @@ dependencies = [
     "rich",
     "wrapt",
     "pydantic",
+    "tenacity",
 ]
 
 [project.optional-dependencies]

@@ -23,10 +23,18 @@ let
     jinja2
     typing-extensions
     inotify
+    hatchling
+    rich
+    wrapt
+    pydantic
+    tenacity
 
     # TODO: add lint and test dependencies.
 
     # Standard python stuff.
+    coverage
+    pytest-cov
+    mypy
     pep517
     pip
     pytest
@@ -60,7 +68,13 @@ let
       src="$(dirname "$(dirname "$out")")"
       cd "$src"
 
-      venv="$src"/.venv
+      if [[ "$VENV" ]]
+      then
+        venv="$VENV"
+      else
+        venv="$src/venv"
+      fi
+
       if test -w default.nix; then
 
         # Create a virtual environment and install the project

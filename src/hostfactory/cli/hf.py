@@ -101,7 +101,19 @@ def run(proxy, log_level, log_file, workdir, confdir) -> None:
     log_handler.setup_logging(log_level, log_file)
 
     logger.info("Workdir: %s", workdir)
-    for dirname in ["requests", "return-requests", "pods", "nodes", "events"]:
+    for dirname in [
+        "requests",
+        "return-requests",
+        "pods",
+        "nodes",
+        "events",
+        "kube-events",
+        "kube-events/Node",
+        "deleted-pods",
+        "nodes",
+        "deleted-nodes",
+        "events",
+    ]:
         pathlib.Path(context.GLOBAL.workdir, dirname).mkdir(parents=True, exist_ok=True)
 
 
@@ -275,3 +287,13 @@ def nodes() -> None:
     k8sutils.load_k8s_config(context.GLOBAL.proxy)
     logger.info("Watching for hf k8s nodes at %s", workdir)
     hfwatcher.watch_nodes(workdir)
+
+
+@watch.command()
+@ON_EXCEPTIONS
+def kube_events() -> None:
+    """Watch for kubernetes events."""
+    workdir = context.GLOBAL.workdir
+    k8sutils.load_k8s_config(context.GLOBAL.proxy)
+    logger.info("Watching for kubernetes events at %s", workdir)
+    hfwatcher.watch_kube_events(workdir)

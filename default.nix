@@ -52,6 +52,7 @@ let
       wrapt
       rich
       pydantic
+      tenacity
     ];
   };
 in

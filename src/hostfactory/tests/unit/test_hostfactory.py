@@ -50,7 +50,7 @@ def _run_cli(module, args) -> click.testing.Result:
     )
 
 
-class TestGetAavailableTemplates(unittest.TestCase):
+class TestGetAvailableTemplates(unittest.TestCase):
     """Validate Hostfactory api functions"""
 
     def setUp(self) -> None:
